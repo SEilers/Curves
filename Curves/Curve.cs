@@ -63,7 +63,7 @@ namespace Curves
         public virtual List<Point2D> GetPoints(int numPoints)
         {
             _pointList = new List<Point2D>();
-            double h = _length / (double)numPoints;
+            double h = _length / ((double)numPoints-1);
 
             for (int i = 0; i < numPoints; i++)
             {

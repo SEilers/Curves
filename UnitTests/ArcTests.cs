@@ -53,10 +53,55 @@ namespace UnitTests
         {
             double startCurvature = 1;
             Arc arc = new Arc(0, 0, 0, startCurvature, Math.PI);
-
             var endCurvature = arc.InterpolateCurvature(1);
-
             Assert.IsTrue(Helper.DoubleCompare(endCurvature, startCurvature));
+        }
+
+        [TestMethod]
+        public void GetPointsTest0()
+        {
+            double startCurvature = 0;
+            Arc arc = new Arc(0, 0, 0, startCurvature, 5);
+            var pl = arc.GetPoints(11);
+            Assert.IsTrue(pl.Count == 11);
+        }
+
+        [TestMethod]
+        public void GetPointsTest1()
+        {
+            double startCurvature = 0;
+            Arc arc = new Arc(0, 0, 0, startCurvature, 5);
+            var pl = arc.GetPoints(11);
+            Assert.IsTrue(Helper.DoubleCompare(pl[10].X, 5));
+        }
+
+        [TestMethod]
+        public void GetPointsTest2()
+        {
+            double startCurvature = 0;
+            Arc arc = new Arc(0, 0, 0, startCurvature, 5);
+            var pl = arc.GetPoints(2);
+            Assert.IsTrue(pl.Count == 2);
+        }
+
+        [TestMethod]
+        public void GetPointsTest3()
+        {
+            double startCurvature = 0;
+            Arc arc = new Arc(0, 0, 0, startCurvature, 5);
+            var pl = arc.GetPoints(2);
+            Assert.IsTrue(Helper.DoubleCompare(pl[1].X, 5));
+        }
+
+        [TestMethod]
+        public void GetPointsTest4()
+        {
+            double startCurvature = 1;
+            Arc arc = new Arc(0, 0, 0, startCurvature, Math.PI);
+            var pl = arc.GetPoints(11);
+            Assert.IsTrue(pl.Count == 11);
+            Assert.IsTrue(Helper.DoubleCompare(pl[10].X, 0));
+            Assert.IsTrue(Helper.DoubleCompare(pl[10].Y, 2));
         }
 
 

@@ -127,7 +127,7 @@ namespace Curves
             // length of this clothoid
             double L = s;
             // stepSize
-            double h = L / (double)_numIterations;
+            double h = L / ((double)_numIterations-1);
 
             double IntCos = 0;
             double IntSin = 0;
@@ -139,8 +139,13 @@ namespace Curves
             double left = 0, mid = 0, right = 0;
             double pl = 0, pm = 0, pr = 0;
 
+            if (_generatePointList)
+            {
+                _pointList.Add(new Point2D(_start_x + 0, _start_y + 0));
+            }
 
-            for (int i = 0; i < _numIterations; i++)
+
+            for (int i = 0; i < _numIterations-1; i++)
             {
                 left = i * h;
                 right = (i + 1) * h;

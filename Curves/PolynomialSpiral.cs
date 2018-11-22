@@ -99,12 +99,17 @@ namespace Curves
         {
             double x = 0, y = 0;
 
-            double h = s / (double)_numIterations;
+            double h = s / ((double)_numIterations-1);
             double IntCos = 0, IntSin = 0;
             double left = 0, right = 0, mid = 0;
             double pl = 0, pm = 0, pr = 0;
 
-            for (int i = 0; i < _numIterations; i++)
+            if (_generatePointList)
+            {
+                _pointList.Add(new Point2D(_start_x + 0, _start_y + 0));
+            }
+
+            for (int i = 0; i < _numIterations-1; i++)
             {
                 left = i * h;
                 right = (i + 1) * h;

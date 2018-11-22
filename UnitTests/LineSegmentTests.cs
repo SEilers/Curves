@@ -63,5 +63,21 @@ namespace UnitTests
 
             Assert.IsTrue(Helper.DoubleCompare(endDirection, startDirection));
         }
+
+        [TestMethod]
+        public void GetPointsTest0()
+        {
+            LineSegment lineSegment = new LineSegment(0, 0, 0, 5);
+            var pl = lineSegment.GetPoints(2);
+            Assert.IsTrue(Helper.DoubleCompare(pl[1].X, 5));
+        }
+
+        [TestMethod]
+        public void GetPointsTest1()
+        {
+            LineSegment lineSegment = new LineSegment(0, 0, 0, 5);
+            var pl = lineSegment.GetPoints(11);
+            Assert.IsTrue(pl.Count == 11);
+        }
     }
 }
