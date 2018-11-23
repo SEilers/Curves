@@ -77,23 +77,18 @@ namespace Curves
             }
 
 
-            double epsilon = 0.00001f;
+            double epsilon = 0.000001f;
             double halfPI = (Math.PI / 2.0);
-            double startDirectionPlusHalfPI = _start_direction + halfPI;
-            double startDirectionMinusHalfPI = _start_direction - halfPI;
+         
+            double curvatureSign = Math.Sign(_start_curvature);
 
-
-            if (_start_curvature > epsilon)
+            // if radius is not too big, calculate an arc point
+            if (_start_curvature > epsilon || _start_curvature < -epsilon)
             {
-                x = _start_x + absRadius * Math.Cos(startDirectionPlusHalfPI) + absRadius * Math.Cos(startDirectionMinusHalfPI + s * _start_curvature);
-                y = _start_y + absRadius * Math.Sin(startDirectionPlusHalfPI) + absRadius * Math.Sin(startDirectionMinusHalfPI + s * _start_curvature);
+                x = _start_x + absRadius * Math.Cos(_start_direction + (curvatureSign * halfPI)) + absRadius * Math.Cos((_start_direction + (-curvatureSign * halfPI)) + s * _start_curvature);
+                y = _start_y + absRadius * Math.Sin(_start_direction + (curvatureSign * halfPI)) + absRadius * Math.Sin((_start_direction + (-curvatureSign * halfPI)) + s * _start_curvature);
             }
-            else if (_start_curvature < -epsilon)
-            {
-                x = _start_x + absRadius * Math.Cos(startDirectionMinusHalfPI) + absRadius * Math.Cos(startDirectionPlusHalfPI + s * _start_curvature);
-                y = _start_y + absRadius * Math.Sin(startDirectionMinusHalfPI) + absRadius * Math.Sin(startDirectionPlusHalfPI + s * _start_curvature);
-            }
-            else
+            else // else if radius is very large (curvature nearly 0), calculate a line point 
             {
                 x = _start_x + s * Math.Cos(_start_direction);
                 y = _start_y + s * Math.Sin(_start_direction);

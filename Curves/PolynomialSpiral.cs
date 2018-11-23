@@ -33,6 +33,13 @@ namespace Curves
             _start_curvature = coefficients[0];
             _length = length;
             _coefficents = coefficients;
+
+            Posture2D endPosture = CalculatePosture2D(_length);
+
+            _end_x = endPosture.X;
+            _end_y = endPosture.Y;
+            _end_direction = endPosture.Direction;
+            _end_curvature = endPosture.Curvature;
         }
 
         /// <summary>

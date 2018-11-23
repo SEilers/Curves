@@ -52,6 +52,46 @@ namespace UnitTests
         }
 
         [TestMethod]
+        public void CurvatureTest1()
+        {
+            LineSegment lineSegment = new LineSegment(0, 0, 0, 2);
+            double curvature = lineSegment.InterpolateCurvature(1);
+            Assert.IsTrue(Helper.DoubleCompare(curvature, 0));
+        }
+
+        [TestMethod]
+        public void CurvatureTest2()
+        {
+            LineSegment lineSegment = new LineSegment(0, 0, 0, 2);
+            double curvature = lineSegment.InterpolateCurvature(0.5);
+            Assert.IsTrue(Helper.DoubleCompare(curvature, 0));
+        }
+
+        [TestMethod]
+        public void CurvatureTest3()
+        {
+            LineSegment lineSegment = new LineSegment(0, 0, 0, 2);
+            double curvature = lineSegment.CalculateCurvature(2);
+            Assert.IsTrue(Helper.DoubleCompare(curvature, 0));
+        }
+
+        [TestMethod]
+        public void CurvatureTest4()
+        {
+            LineSegment lineSegment = new LineSegment(0, 0, 0, 2);
+            double curvature = lineSegment.CalculateCurvature(1);
+            Assert.IsTrue(Helper.DoubleCompare(curvature, 0));
+        }
+
+        [TestMethod]
+        public void CurvatureTest5()
+        {
+            LineSegment lineSegment = new LineSegment(0, 0, 0, 2);
+            double curvature = lineSegment.EndCurvature;
+            Assert.IsTrue(Helper.DoubleCompare(curvature, 0));
+        }
+
+        [TestMethod]
         public void DirectionTest0()
         {
             double startDirection = Angle.DegreeToRadians(90);

@@ -49,15 +49,6 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void CurvatureTest0()
-        {
-            double startCurvature = 1;
-            Arc arc = new Arc(0, 0, 0, startCurvature, Math.PI);
-            var endCurvature = arc.InterpolateCurvature(1);
-            Assert.IsTrue(Helper.DoubleCompare(endCurvature, startCurvature));
-        }
-
-        [TestMethod]
         public void GetPointsTest0()
         {
             double startCurvature = 0;
@@ -102,6 +93,51 @@ namespace UnitTests
             Assert.IsTrue(pl.Count == 11);
             Assert.IsTrue(Helper.DoubleCompare(pl[10].X, 0));
             Assert.IsTrue(Helper.DoubleCompare(pl[10].Y, 2));
+        }
+
+        [TestMethod]
+        public void CurvatureTest0()
+        {
+            double startCurvature = 1;
+            Arc arc = new Arc(0, 0, 0, startCurvature, Math.PI);
+            double endCurvature = arc.EndCurvature;
+            Assert.IsTrue(Helper.DoubleCompare(startCurvature, endCurvature));
+        }
+
+        [TestMethod]
+        public void CurvatureTest1()
+        {
+            double startCurvature = 1;
+            Arc arc = new Arc(0, 0, 0, startCurvature, Math.PI);
+            var endCurvature = arc.InterpolateCurvature(1);
+            Assert.IsTrue(Helper.DoubleCompare(endCurvature, startCurvature));
+        }
+
+        [TestMethod]
+        public void CurvatureTest2()
+        {
+            double startCurvature = -1;
+            Arc arc = new Arc(0, 0, 0, startCurvature, Math.PI);
+            var endCurvature = arc.InterpolateCurvature(1);
+            Assert.IsTrue(Helper.DoubleCompare(endCurvature, startCurvature));
+        }
+
+        [TestMethod]
+        public void CurvatureTest3()
+        {
+            double startCurvature = 1;
+            Arc arc = new Arc(0, 0, 0, startCurvature, Math.PI);
+            var endCurvature = arc.CalculateCurvature(Math.PI);
+            Assert.IsTrue(Helper.DoubleCompare(endCurvature, startCurvature));
+        }
+
+        [TestMethod]
+        public void CurvatureTest4()
+        {
+            double startCurvature = -1;
+            Arc arc = new Arc(0, 0, 0, startCurvature, Math.PI);
+            var endCurvature = arc.CalculateCurvature(Math.PI);
+            Assert.IsTrue(Helper.DoubleCompare(endCurvature, startCurvature));
         }
 
 

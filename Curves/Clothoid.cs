@@ -61,8 +61,11 @@ namespace Curves
         /// <returns>Curvature at point t * length.</returns>
         public override double InterpolateCurvature(double t)
         {
-            double curvature = (t * _length) / (_a * _a) + _start_curvature;
-            return curvature;
+            double s = t * _length;
+            return CalculateCurvature(s);
+
+            //double curvature = (t * _length) / (_a * _a) + _start_curvature;
+            //return curvature;
         }
 
         /// <summary>
@@ -72,12 +75,15 @@ namespace Curves
         /// <returns>Direction at point t * length.</returns>
         public override double InterpolateDirection(double t)
         {
-            double L = t * _length;
-            double aa = _a * _a;
-            if (_a < 0)
-                aa *= -1.0;
+            double s = t * _length;
+            return CalculateDirection(s);
 
-            return _start_direction + L * _start_curvature + ((L * L) / (2 * aa));
+            //double L = t * _length;
+            //double aa = _a * _a;
+            //if (_a < 0)
+            //    aa *= -1.0;
+
+            //return _start_direction + L * _start_curvature + ((L * L) / (2 * aa));
         }
 
         /// <summary>
@@ -131,10 +137,6 @@ namespace Curves
 
             double IntCos = 0;
             double IntSin = 0;
-
-            double aa = _a * _a;
-
-            if (_a < 0) aa *= -1;
 
             double left = 0, mid = 0, right = 0;
             double pl = 0, pm = 0, pr = 0;
@@ -225,7 +227,18 @@ namespace Curves
             if (_a < 0)
                 aa *= -1.0;
 
-            return _start_direction + (s * _start_curvature) + ((s * s) / (2 * aa));
+            double direction = _start_direction;
+
+            try
+            {
+                direction += (s * _start_curvature) + ((s * s) / (2 * aa));
+            }
+            catch(DivideByZeroException ex )
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            return direction;
         }
 
         /// <summary>
@@ -235,7 +248,21 @@ namespace Curves
         /// <returns>Curvature.</returns>
         public override double CalculateCurvature(double s)
         {
-            double curvature = (s) / (_a * _a) + _start_curvature;
+            double aa = _a * _a;
+            if (_a < 0)
+                aa *= -1.0;
+
+            double curvature = _start_curvature;
+
+            try
+            { 
+                curvature += (s) / (aa);
+            }
+            catch(DivideByZeroException ex )
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
             return curvature;
         }
     }

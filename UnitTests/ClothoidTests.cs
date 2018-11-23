@@ -15,15 +15,6 @@ namespace UnitTests
             Console.WriteLine(p.ToString());
         }
 
-        [TestMethod]
-        public void CurvatureTest0()
-        {
-            Clothoid clothoid = new Clothoid(0, 0, 0, 0, 1, 2);
-            var p = clothoid.InterpolateCurvature(1);
-
-
-
-        }
 
         [TestMethod]
         public void DirectionTest0()
@@ -56,6 +47,60 @@ namespace UnitTests
             Clothoid clothoid = new Clothoid(0, 0, 0, 0, 10000, 5);
             var pl = clothoid.GetPoints(2);
             Assert.IsTrue(Helper.DoubleCompare(pl[1].X, 5));
+        }
+
+        [TestMethod]
+        public void CurvatureTest0()
+        {
+            double startCurvature = 0;
+            Clothoid clothoid = new Clothoid(0, 0, 0, startCurvature, 1, Math.PI);
+            double endCurvature = clothoid.EndCurvature;
+            Assert.IsTrue(Helper.DoubleCompare(Math.PI, endCurvature));
+        }
+
+        [TestMethod]
+        public void CurvatureTest1()
+        {
+            double startCurvature = 0;
+            Clothoid clothoid = new Clothoid(0, 0, 0, startCurvature, -1, Math.PI);
+            double endCurvature = clothoid.EndCurvature;
+            Assert.IsTrue(Helper.DoubleCompare(-Math.PI, endCurvature));
+        }
+
+        [TestMethod]
+        public void CurvatureTest2()
+        {
+            double startCurvature = 0;
+            Clothoid clothoid = new Clothoid(0, 0, 0, startCurvature, 1, Math.PI);
+            double endCurvature = clothoid.InterpolateCurvature(0.5);
+            Assert.IsTrue(Helper.DoubleCompare(Math.PI/2, endCurvature));
+        }
+
+        [TestMethod]
+        public void CurvatureTest3()
+        {
+            double startCurvature = 0;
+            Clothoid clothoid = new Clothoid(0, 0, 0, startCurvature, -1, Math.PI);
+            double endCurvature = clothoid.InterpolateCurvature(0.5);
+            Assert.IsTrue(Helper.DoubleCompare(-Math.PI/2, endCurvature));
+        }
+
+        [TestMethod]
+        public void CurvatureTest4()
+        {
+            double startCurvature = 0;
+            Clothoid clothoid = new Clothoid(0, 0, 0, startCurvature, 1, Math.PI);
+            double endCurvature = clothoid.CalculateCurvature(Math.PI / 2);
+            Assert.IsTrue(Helper.DoubleCompare(Math.PI / 2, endCurvature));
+        }
+
+        [TestMethod]
+        public void CurvatureTest5()
+        {
+            double startCurvature = 0;
+            Clothoid clothoid = new Clothoid(0, 0, 0, startCurvature, -1, Math.PI);
+            double endCurvature = clothoid.CalculateCurvature(Math.PI / 2);
+            Assert.IsTrue(Helper.DoubleCompare(-Math.PI / 2, endCurvature));
         }
 
     }
