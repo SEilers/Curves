@@ -34,6 +34,29 @@ namespace Curves
             _end_curvature = endPosture.Curvature;
         }
 
+        public static Arc FromPoseAndPoint( double startX, double startY, double startDirection, double endX, double endY )
+        {
+            double dx; double dy;
+
+            Point2D p = CoordinateSystemConverter.ToPoseCoordinateSystem(startX, startY, startDirection, endX, endY);
+
+            dx = p.X;
+            dy = p.Y;
+
+            double r = (dx * dx + dy * dy) / (2.0f * dy);
+            double k = 1.0f / r;
+            double l = Math.Sqrt(dx * dx + dy * dy);
+            double alpha = 2.0f * Math.Asin(l / (2.0f * r));
+
+            if (dx < 0 && dy > 0) alpha = (2.0f * Math.PI) - alpha;
+            if (dx < 0 && dy < 0) alpha = (2.0f * -Math.PI) - alpha;
+
+            double curvature = 1.0f / r;
+            double length = r * alpha;
+
+            return new Arc(startX, startY, startDirection, curvature, length);
+        }
+
 
         /// <summary>
         /// Calculates the curvature of the arc at arclength s.

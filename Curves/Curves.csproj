@@ -6,6 +6,7 @@
     <PackageTags>LineSegment, Arc, Clothoid, PolynomialSpiral</PackageTags>
     <RepositoryUrl>https://github.com/SEilers/Curves</RepositoryUrl>
     <Description>C# library for basic curves: line segment, arc, clothoid and polynomial spiral.</Description>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
 </Project>
