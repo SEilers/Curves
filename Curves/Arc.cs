@@ -44,7 +44,6 @@ namespace Curves
             dy = p.Y;
 
             double r = (dx * dx + dy * dy) / (2.0f * dy);
-            double k = 1.0f / r;
             double l = Math.Sqrt(dx * dx + dy * dy);
             double alpha = 2.0f * Math.Asin(l / (2.0f * r));
 
