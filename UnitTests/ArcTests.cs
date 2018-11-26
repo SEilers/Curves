@@ -8,6 +8,26 @@ namespace UnitTests
     public class ArcTests
     {
         [TestMethod]
+        public void TranslationTest0()
+        {
+            Arc arc = new Arc(1, 1, 0, 1, Math.PI);
+            var p = arc.InterpolatePoint2D(1);
+
+            Assert.IsTrue(Helper.DoubleCompare(p.X, 1));
+            Assert.IsTrue(Helper.DoubleCompare(p.Y, 3));
+        }
+
+        [TestMethod]
+        public void TranslationTest1()
+        {
+            Arc arc = new Arc(1, 1, 0, -1, Math.PI);
+            var p = arc.InterpolatePoint2D(1);
+
+            Assert.IsTrue(Helper.DoubleCompare(p.X, 1));
+            Assert.IsTrue(Helper.DoubleCompare(p.Y, -1));
+        }
+
+        [TestMethod]
         public void InterpolationTest0()
         {
             Arc arc = new Arc(0, 0, 0, 1, Math.PI);
@@ -138,6 +158,84 @@ namespace UnitTests
             Arc arc = new Arc(0, 0, 0, startCurvature, Math.PI);
             var endCurvature = arc.CalculateCurvature(Math.PI);
             Assert.IsTrue(Helper.DoubleCompare(endCurvature, startCurvature));
+        }
+
+        [TestMethod]
+        public void FromPoseAndPointTest0()
+        {
+            Arc arc = Arc.FromPoseAndPoint(0, 0, 0, 1, 1);
+            var curvature = arc.EndCurvature;
+            var length = arc.Length;
+            var endPoint = arc.InterpolatePoint2D(1);
+            Assert.IsTrue(Helper.DoubleCompare(curvature, 1));
+            Assert.IsTrue(Helper.DoubleCompare(length, Math.PI/2 ));
+            Assert.IsTrue(Helper.DoubleCompare(endPoint.X, 1));
+            Assert.IsTrue(Helper.DoubleCompare(endPoint.Y, 1));
+        }
+
+        [TestMethod]
+        public void FromPoseAndPointTest1()
+        {
+            Arc arc = Arc.FromPoseAndPoint(0, 0, 0, 0, 2);
+            var curvature = arc.EndCurvature;
+            var length = arc.Length;
+            var endPoint = arc.InterpolatePoint2D(1);
+            Assert.IsTrue(Helper.DoubleCompare(curvature, 1));
+            Assert.IsTrue(Helper.DoubleCompare(length, Math.PI));
+            Assert.IsTrue(Helper.DoubleCompare(endPoint.X, 0));
+            Assert.IsTrue(Helper.DoubleCompare(endPoint.Y, 2));
+        }
+
+        [TestMethod]
+        public void FromPoseAndPointTest2()
+        {
+            Arc arc = Arc.FromPoseAndPoint(0, 0, 0, 1, -1);
+            var curvature = arc.EndCurvature;
+            var length = arc.Length;
+            var endPoint = arc.InterpolatePoint2D(1);
+            Assert.IsTrue(Helper.DoubleCompare(curvature, -1));
+            Assert.IsTrue(Helper.DoubleCompare(length, Math.PI / 2));
+            Assert.IsTrue(Helper.DoubleCompare(endPoint.X, 1));
+            Assert.IsTrue(Helper.DoubleCompare(endPoint.Y, -1));
+        }
+
+        [TestMethod]
+        public void FromPoseAndPointTest3()
+        {
+            Arc arc = Arc.FromPoseAndPoint(0, 0, 0, 0, -2);
+            var curvature = arc.EndCurvature;
+            var length = arc.Length;
+            var endPoint = arc.InterpolatePoint2D(1);
+            Assert.IsTrue(Helper.DoubleCompare(curvature, -1));
+            Assert.IsTrue(Helper.DoubleCompare(length, Math.PI));
+            Assert.IsTrue(Helper.DoubleCompare(endPoint.X, 0));
+            Assert.IsTrue(Helper.DoubleCompare(endPoint.Y, -2));
+        }
+
+        [TestMethod]
+        public void FromPoseAndPointTest4()
+        {
+            Arc arc = Arc.FromPoseAndPoint(1, 1, 0, 2, 2);
+            var curvature = arc.EndCurvature;
+            var length = arc.Length;
+            var endPoint = arc.InterpolatePoint2D(1);
+            Assert.IsTrue(Helper.DoubleCompare(curvature, 1));
+            Assert.IsTrue(Helper.DoubleCompare(length, Math.PI / 2));
+            Assert.IsTrue(Helper.DoubleCompare(endPoint.X, 2));
+            Assert.IsTrue(Helper.DoubleCompare(endPoint.Y, 2));
+        }
+
+        [TestMethod]
+        public void FromPoseAndPointTest5()
+        {
+            Arc arc = Arc.FromPoseAndPoint(1, 1, 0, 1, 3);
+            var curvature = arc.EndCurvature;
+            var length = arc.Length;
+            var endPoint = arc.InterpolatePoint2D(1);
+            Assert.IsTrue(Helper.DoubleCompare(curvature, 1));
+            Assert.IsTrue(Helper.DoubleCompare(length, Math.PI));
+            Assert.IsTrue(Helper.DoubleCompare(endPoint.X, 1));
+            Assert.IsTrue(Helper.DoubleCompare(endPoint.Y, 3));
         }
 
 
