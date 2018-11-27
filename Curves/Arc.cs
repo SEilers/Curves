@@ -43,8 +43,8 @@ namespace Curves
             dx = p.X;
             dy = p.Y;
 
-            double r = (dx * dx + dy * dy) / (2.0f * dy);
-            double l = Math.Sqrt(dx * dx + dy * dy);
+            double r = ((dx * dx) + (dy * dy)) / (2.0f * dy);
+            double l = Math.Sqrt((dx * dx) + (dy * dy));
             double alpha = 2.0f * Math.Asin(l / (2.0f * r));
 
             if (dx < 0 && dy > 0) alpha = (2.0f * Math.PI) - alpha;
