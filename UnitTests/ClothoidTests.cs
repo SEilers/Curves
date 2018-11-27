@@ -145,13 +145,5 @@ namespace UnitTests
                 Assert.IsTrue(Helper.DoubleCompare(2, endPoint.Y));
             }
         }
-
-
-        
-
-       
-
-
-
     }
 }
