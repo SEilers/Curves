@@ -11,11 +11,20 @@ namespace Curves
     public class Clothoid : Curve
     {
         /// <summary>
-        /// CLothoid parameter A.
+        /// Clothoid parameter A.
         /// </summary>
         private double _a;
 
+        public double A
+        {
+            get
+            {
+                return _a;
+            }
+        }
+
         private int _numIterations = 12;
+
         private bool _generatePointList = false;
 
         /// <summary>
@@ -52,6 +61,151 @@ namespace Curves
             _end_y = endPosture.Y;
             _end_direction = endPosture.Direction;
             _end_curvature = endPosture.Curvature;
+        }
+
+        public static Clothoid FromPoseAndPoint( double x0, double y0, double direction0, double xf, double yf )
+        {
+            // transform point pf into local coordinate system of the clothoid:
+            Point2D p = CoordinateSystemConverter.ToPoseCoordinateSystem(x0, y0, direction0, xf, yf);
+
+            // p.X is behind the origing of the clothoid, no solution: return null
+            if (p.X < 0) {  return null; }
+
+            double tauMax = Angle.DegreeToRadians(240.0f);
+            double AUnit = 1.0f;
+            double SUnit = Math.Sqrt(tauMax * 2.0f * AUnit);
+
+            Clothoid UnitC = new Clothoid(0, 0, 0, 0, AUnit, SUnit);
+            Point2D UnitEndPos = UnitC.InterpolatePoint2D(1);
+            int vSide = Geometry.PointOnSideOfLine(new Point2D(0, 0), UnitEndPos, p);
+            // Point is on the left => not in the valid set (angle bigger than 240 Deg)
+            if (vSide == 1)
+            {
+                return null;
+            }
+
+            
+
+            // find upper and lower limits for clothoid parameter A and 
+            double min_A, max_A, min_S, max_S;
+
+            double euclideanDistance =  Math.Sqrt( p.X * p.X + p.Y * p.Y);
+            bool switchedASign = false;
+
+            if (p.Y > 0)
+            {
+                min_A = 0;
+                max_A = double.MaxValue;
+                min_S = euclideanDistance;
+                max_S = double.MaxValue;
+            }
+            else if (p.Y < 0) // make p.Y positive for sake of simplicity and change sign at end again
+            {
+                switchedASign = true;
+                p.Y *= -1.0f;
+            }
+            else if (Math.Abs(p.Y) < 0.001f) // smaller than a millimeter: it's a line
+            {
+                double pA = double.MaxValue;
+                double pLength = p.X;
+                return new Clothoid(x0, y0, direction0, 0, pA, pLength);
+            }
+
+            // calculate ratio
+            double gs_Pf = Math.Sqrt(p.X * p.X + p.Y * p.Y);
+            double alpha = Math.Atan(p.Y / p.X);
+
+            // limit min_S further to lenght of an Arc
+            Arc minLengthArc = Arc.FromPoseAndPoint(x0, y0, direction0, xf, yf);
+            min_S = minLengthArc.Length;
+
+
+            // calculate tau for A = 1, find s for A = 1
+
+            double distanceToLine = double.MaxValue;
+
+            double binSearch_SMin = 0;
+            double binSearch_SMid = 0;
+            double binSearch_SMax = SUnit;
+
+            //if( alpha < 0.167 )
+            //{
+            //    binSearch_SMax = 1;
+            //    binSearch_SMin = 0;
+            //}
+            //else
+            //{
+            //    binSearch_SMax = SUnit;
+            //    binSearch_SMin = 1;
+            //}
+
+
+            // Stats
+            int numberOfIterations = 0;
+
+            // Binary Search
+            while (distanceToLine > 0.000001f)
+            //while (distanceToLine > 0.001f)
+            {
+                binSearch_SMid = (binSearch_SMin + binSearch_SMax) / 2.0f;
+                Clothoid estC = new Clothoid(0, 0, 0, 0, AUnit, binSearch_SMid);
+                Point2D lCEnd = estC.InterpolatePoint2D(1);
+
+                int side = Geometry.PointOnSideOfLine(new Point2D(0, 0), p, lCEnd);
+                if (side == 1)  // left of line => s has to shrink
+                {
+                    binSearch_SMax = binSearch_SMid;
+                }
+                else if (side == -1) // right of line => s has to grow
+                {
+                    binSearch_SMin = binSearch_SMid;
+
+                }
+                else if (side == 0) // point is on line
+                {
+                    break;
+                }
+                // distance between the endpoint of the clothoid to the line to point p
+                distanceToLine = Geometry.DistancePointToLine(new Point2D(0, 0), p, lCEnd);
+                numberOfIterations++;
+
+                if (numberOfIterations > 100)
+                    break;
+            }
+
+            // Calculate Tau
+            double sUnit = binSearch_SMid;
+            //double tau = (sUnit * sUnit) / (2.0 * AUnit * AUnit);
+            double tau = (sUnit * sUnit) / (2.0); // A = 1
+
+            // tau by regression:
+            //double tau_r = 1.28326864 * Math.Pow(alpha, 3) + -1.05037086 * Math.Pow(alpha, 2) + 3.26081204 * alpha + -0.0090892;
+            //2.03334886 - 2.67373293  1.33675919  2.80539716  0.00427624
+            //double tau_r = 2.03334886 * Math.Pow(alpha, 4) + -2.67373293 * Math.Pow(alpha, 3) + 1.33675919 * Math.Pow(alpha, 2) + 2.80539716 * alpha + 0.00427624;
+            //double dtau = Math.Abs(tau - tau_r);
+            //double angle_err = Angle.RadiansToDegree(dtau);
+
+            Clothoid clothoidA1 = new Clothoid(0, 0, 0, 0, AUnit, binSearch_SMid);
+
+            Point2D PA = clothoidA1.InterpolatePoint2D(1);
+            double gs_PA = Point2D.DistanceToOrigin(PA);
+
+            double sA = binSearch_SMid;
+
+            // calculate sf
+            double sf = (sA / gs_PA) * gs_Pf;
+
+            // calculate A
+            double Af = Math.Sqrt((sf * sf) / (2.0 * tau));
+
+            //A = cA;
+            double A = Af;
+            if (switchedASign) A *= -1.0;
+
+            //length = binSearch2_SMid;
+            double length = sf;
+            Clothoid result = new Clothoid(x0, y0, direction0, 0, A, length);
+            return result;
         }
 
         /// <summary>
