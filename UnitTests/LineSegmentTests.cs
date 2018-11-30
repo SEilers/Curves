@@ -119,5 +119,13 @@ namespace UnitTests
             var pl = lineSegment.GetPoints(11);
             Assert.IsTrue(pl.Count == 11);
         }
+
+        [TestMethod]
+        public void GetPointsTest2()
+        {
+            LineSegment lineSegment = new LineSegment(0, 0, 0, 5);
+            var pl = lineSegment.GetPoints(21);
+            Assert.IsTrue(pl.Count == 21);
+        }
     }
 }
