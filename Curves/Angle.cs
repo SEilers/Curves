@@ -6,7 +6,7 @@ namespace Curves
     /// Helper class for angle conversion.
     /// </summary>
     [Serializable]
-    public class Angle
+    static class Angle
     {
         /// <summary>
         /// Converts an angle in radians to an angle in degree.

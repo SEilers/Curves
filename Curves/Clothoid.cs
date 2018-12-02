@@ -13,7 +13,7 @@ namespace Curves
         /// <summary>
         /// Clothoid parameter A.
         /// </summary>
-        private double _a;
+        private readonly double _a;
 
         public double A
         {
@@ -86,18 +86,14 @@ namespace Curves
 
             
 
-            // find upper and lower limits for clothoid parameter A and 
-            double min_A, max_A, min_S, max_S;
+            double  min_S;
 
             double euclideanDistance =  Math.Sqrt( p.X * p.X + p.Y * p.Y);
             bool switchedASign = false;
 
             if (p.Y > 0)
             {
-                min_A = 0;
-                max_A = double.MaxValue;
                 min_S = euclideanDistance;
-                max_S = double.MaxValue;
             }
             else if (p.Y < 0) // make p.Y positive for sake of simplicity and change sign at end again
             {
@@ -113,7 +109,6 @@ namespace Curves
 
             // calculate ratio
             double gs_Pf = Math.Sqrt(p.X * p.X + p.Y * p.Y);
-            double alpha = Math.Atan(p.Y / p.X);
 
             // limit min_S further to lenght of an Arc
             Arc minLengthArc = Arc.FromPoseAndPoint(x0, y0, direction0, xf, yf);
@@ -123,21 +118,9 @@ namespace Curves
             // calculate tau for A = 1, find s for A = 1
 
             double distanceToLine = double.MaxValue;
-
             double binSearch_SMin = 0;
             double binSearch_SMid = 0;
             double binSearch_SMax = SUnit;
-
-            //if( alpha < 0.167 )
-            //{
-            //    binSearch_SMax = 1;
-            //    binSearch_SMin = 0;
-            //}
-            //else
-            //{
-            //    binSearch_SMax = SUnit;
-            //    binSearch_SMin = 1;
-            //}
 
 
             // Stats
@@ -170,7 +153,9 @@ namespace Curves
                 numberOfIterations++;
 
                 if (numberOfIterations > 100)
+                {
                     break;
+                }
             }
 
             // Calculate Tau
@@ -198,13 +183,14 @@ namespace Curves
             // calculate A
             double Af = Math.Sqrt((sf * sf) / (2.0 * tau));
 
-            //A = cA;
-            double A = Af;
-            if (switchedASign) A *= -1.0;
+            if (switchedASign)
+            {
+                Af *= -1.0;
+            }
 
             //length = binSearch2_SMid;
             double length = sf;
-            Clothoid result = new Clothoid(x0, y0, direction0, 0, A, length);
+            Clothoid result = new Clothoid(x0, y0, direction0, 0, Af, length);
             return result;
         }
 

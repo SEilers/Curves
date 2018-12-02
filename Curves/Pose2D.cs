@@ -8,7 +8,13 @@ namespace Curves
     [Serializable]
     public class Pose2D
     {
-        public double X = 0, Y = 0, Direction = 0;
+        private double _direction;
+        private double _x;
+        private double _y;
+
+        public double X { get => _x; set => _x = value; }
+        public double Y { get => _y; set => _y = value; }
+        public double Direction { get => _direction; set => _direction = value; }
 
         public Pose2D(double x, double y, double direction)
         {

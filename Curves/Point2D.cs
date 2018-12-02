@@ -8,8 +8,11 @@ namespace Curves
     [Serializable]
     public class Point2D
     {
-        public double X = 0;
-        public double Y = 0;
+        private double _x = 0;
+        private double _y = 0;
+
+        public double X { get => _x; set => _x = value; }
+        public double Y { get => _y; set => _y = value; }
 
         public Point2D(double x, double y)
         {

@@ -26,7 +26,9 @@ namespace Curves
 
             double x = Math.Sqrt(xpx * xpx + xpy * xpy);
             if (u < 0)
+            {
                 x *= -1;
+            }
 
             double LDirX = -dirY;
             double LDirY = dirX;
@@ -40,7 +42,9 @@ namespace Curves
 
             double y = Math.Sqrt(ypx * ypx + ypy * ypy);
             if (v < 0)
+            {
                 y *= -1;
+            }
 
             result = new Point2D(x, y);
 

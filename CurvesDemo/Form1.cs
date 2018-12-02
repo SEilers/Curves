@@ -44,7 +44,7 @@ namespace CurvesDemo
             this.chart1.Series.Add(series);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             chart1.Series.Clear();
 
@@ -63,7 +63,7 @@ namespace CurvesDemo
             DrawCurve(ls5, 2, Color.Green);
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Button2_Click(object sender, EventArgs e)
         {
             chart1.Series.Clear();
 
@@ -84,7 +84,7 @@ namespace CurvesDemo
             DrawCurve(arc5, 32, Color.OrangeRed);
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void Button3_Click(object sender, EventArgs e)
         {
             chart1.Series.Clear();
 
@@ -119,7 +119,7 @@ namespace CurvesDemo
             DrawCurve(cl11, 257, Color.DarkGoldenrod);
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void Button4_Click(object sender, EventArgs e)
         {
             chart1.Series.Clear();
 

@@ -8,7 +8,15 @@ namespace Curves
     [Serializable]
     public class Posture2D
     {
-        public double X, Y, Direction, Curvature;
+        private double curvature;
+        private double x;
+        private double y;
+        private double direction;
+
+        public double X { get => x; set => x = value; }
+        public double Y { get => y; set => y = value; }
+        public double Direction { get => direction; set => direction = value; }
+        public double Curvature { get => curvature; set => curvature = value; }
 
         public Posture2D(double x, double y, double direction, double curvature)
         {

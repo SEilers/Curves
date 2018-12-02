@@ -8,8 +8,10 @@ namespace Curves
     [Serializable]
     public class LineSegment : Curve
     {
-        private double t_x, t_y;
-        private double v_x, v_y;
+        private readonly double t_x;
+        private readonly double t_y;
+        private readonly double v_x;
+        private readonly double v_y;
 
         /// <summary>
         /// Constructor of the line segment curve. 

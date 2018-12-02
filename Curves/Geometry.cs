@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Curves
 {
-    public class Geometry
+    public static class Geometry
     {
         /// <summary>
         /// Line from Vector a and b. Calculates, if a point p is left or right 
