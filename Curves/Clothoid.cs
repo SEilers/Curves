@@ -25,7 +25,7 @@ namespace Curves
 
         private int _numIterations = 12;
 
-        private bool _generatePointList = false;
+        private bool _generatePointList;
 
         /// <summary>
         /// Getting and setting the number of iterations during integration of a point.
@@ -84,18 +84,9 @@ namespace Curves
                 return null;
             }
 
-            
-
-            double  min_S;
-
-            double euclideanDistance =  Math.Sqrt( p.X * p.X + p.Y * p.Y);
             bool switchedASign = false;
 
-            if (p.Y > 0)
-            {
-                min_S = euclideanDistance;
-            }
-            else if (p.Y < 0) // make p.Y positive for sake of simplicity and change sign at end again
+            if (p.Y < 0) // make p.Y positive for sake of simplicity and change sign at end again
             {
                 switchedASign = true;
                 p.Y *= -1.0f;
@@ -110,13 +101,6 @@ namespace Curves
             // calculate ratio
             double gs_Pf = Math.Sqrt(p.X * p.X + p.Y * p.Y);
 
-            // limit min_S further to lenght of an Arc
-            Arc minLengthArc = Arc.FromPoseAndPoint(x0, y0, direction0, xf, yf);
-            min_S = minLengthArc.Length;
-
-
-            // calculate tau for A = 1, find s for A = 1
-
             double distanceToLine = double.MaxValue;
             double binSearch_SMin = 0;
             double binSearch_SMid = 0;
@@ -128,7 +112,6 @@ namespace Curves
 
             // Binary Search
             while (distanceToLine > 0.000001f)
-            //while (distanceToLine > 0.001f)
             {
                 binSearch_SMid = (binSearch_SMin + binSearch_SMax) / 2.0f;
                 Clothoid estC = new Clothoid(0, 0, 0, 0, AUnit, binSearch_SMid);
@@ -158,9 +141,9 @@ namespace Curves
                 }
             }
 
-            // Calculate Tau
+            
             double sUnit = binSearch_SMid;
-            //double tau = (sUnit * sUnit) / (2.0 * AUnit * AUnit);
+            // Calculate Tau
             double tau = (sUnit * sUnit) / (2.0); // A = 1
 
             // tau by regression:
@@ -188,7 +171,6 @@ namespace Curves
                 Af *= -1.0;
             }
 
-            //length = binSearch2_SMid;
             double length = sf;
             Clothoid result = new Clothoid(x0, y0, direction0, 0, Af, length);
             return result;
@@ -365,19 +347,13 @@ namespace Curves
         {
             double aa = _a * _a;
             if (_a < 0)
+            {
                 aa *= -1.0;
+            }
 
             double direction = _start_direction;
-
-            try
-            {
-                direction += (s * _start_curvature) + ((s * s) / (2 * aa));
-            }
-            catch(DivideByZeroException ex )
-            {
-                Console.WriteLine(ex.ToString());
-            }
-
+            direction += (s * _start_curvature) + (s * s / (2 * aa));
+            
             return direction;
         }
 
@@ -390,19 +366,13 @@ namespace Curves
         {
             double aa = _a * _a;
             if (_a < 0)
+            {
                 aa *= -1.0;
+            }
 
             double curvature = _start_curvature;
-
-            try
-            { 
-                curvature += (s) / (aa);
-            }
-            catch(DivideByZeroException ex )
-            {
-                Console.WriteLine(ex.ToString());
-            }
-
+            curvature += s / aa;
+        
             return curvature;
         }
     }
