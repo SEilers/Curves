@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Curves
 {
-    public class CoordinateSystemConverter
+    public static class CoordinateSystemConverter
     {
         public static Point2D ToPoseCoordinateSystem(double poseX, double poseY, double poseDirection, double px, double py)
         {

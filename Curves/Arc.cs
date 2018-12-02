@@ -47,8 +47,15 @@ namespace Curves
             double l = Math.Sqrt((dx * dx) + (dy * dy));
             double alpha = 2.0f * Math.Asin(l / (2.0f * r));
 
-            if (dx < 0 && dy > 0) alpha = (2.0f * Math.PI) - alpha;
-            if (dx < 0 && dy < 0) alpha = (2.0f * -Math.PI) - alpha;
+            if (dx < 0 && dy > 0)
+            {
+                alpha = (2.0f * Math.PI) - alpha;
+            }
+
+            if (dx < 0 && dy < 0)
+            {
+                alpha = (2.0f * -Math.PI) - alpha;
+            }
 
             double curvature = 1.0f / r;
             double length = r * alpha;

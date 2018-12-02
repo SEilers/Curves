@@ -8,16 +8,16 @@ namespace Curves
     [Serializable]
     public class Point2D
     {
-        private double _x = 0;
-        private double _y = 0;
+        private double _x;
+        private double _y;
 
         public double X { get => _x; set => _x = value; }
         public double Y { get => _y; set => _y = value; }
 
         public Point2D(double x, double y)
         {
-            this.X = x;
-            this.Y = y;
+            _x = x;
+            _y = y;
         }
 
         public static Point2D operator +(Point2D a, Point2D b)
@@ -54,7 +54,7 @@ namespace Curves
 
         public double DistanceToOrigin()
         {
-            return Math.Sqrt(X * X + Y * Y);
+            return Math.Sqrt(_x * _x + _y * _y);
         }
 
         public static double Dot( Point2D a, Point2D b)
