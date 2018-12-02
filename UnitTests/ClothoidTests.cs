@@ -13,14 +13,6 @@ namespace UnitTests
         [TestMethod]
         public void InterpolationTest0()
         {
-            Clothoid clothoid = new Clothoid(0, 0, 0, 0, 1, 2);
-            var p = clothoid.InterpolatePoint2D(1);
-            Console.WriteLine(p.ToString());
-        }
-
-        [TestMethod]
-        public void InterpolationTest1()
-        {
             Clothoid cl = new Clothoid(0, 0, 0, 0, 1, 1);
             Pose2D endPose = cl.InterpolatePose2D(1);
             double direction = endPose.Direction;
@@ -29,15 +21,6 @@ namespace UnitTests
             Assert.IsTrue(Helper.DoubleCompare(direction, 0.5));
             Assert.IsTrue(Helper.DoubleCompare(curvature, 1));
         }
-
-
-        [TestMethod]
-        public void DirectionTest0()
-        {
-            Clothoid clothoid = new Clothoid(0, 0, 0, 0, 1, 2);
-            var p = clothoid.InterpolateDirection(1);
-        }
-
        
 
         [TestMethod]

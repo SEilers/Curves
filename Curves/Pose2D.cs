@@ -18,14 +18,14 @@ namespace Curves
 
         public Pose2D(double x, double y, double direction)
         {
-            this.X = x;
-            this.Y = y;
-            this.Direction = direction;
+            _x = x;
+            _y = y;
+            _direction = direction;
         }
 
         public override string ToString()
         {
-            return "X: " + X + " Y: " + Y + " Direction " + Direction;
+            return "X: " + _x + " Y: " + _y + " Direction " + _direction;
         }
     }
 }

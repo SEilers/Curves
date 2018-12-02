@@ -146,13 +146,6 @@ namespace Curves
             // Calculate Tau
             double tau = (sUnit * sUnit) / (2.0); // A = 1
 
-            // tau by regression:
-            //double tau_r = 1.28326864 * Math.Pow(alpha, 3) + -1.05037086 * Math.Pow(alpha, 2) + 3.26081204 * alpha + -0.0090892;
-            //2.03334886 - 2.67373293  1.33675919  2.80539716  0.00427624
-            //double tau_r = 2.03334886 * Math.Pow(alpha, 4) + -2.67373293 * Math.Pow(alpha, 3) + 1.33675919 * Math.Pow(alpha, 2) + 2.80539716 * alpha + 0.00427624;
-            //double dtau = Math.Abs(tau - tau_r);
-            //double angle_err = Angle.RadiansToDegree(dtau);
-
             Clothoid clothoidA1 = new Clothoid(0, 0, 0, 0, AUnit, binSearch_SMid);
 
             Point2D PA = clothoidA1.InterpolatePoint2D(1);
@@ -185,9 +178,6 @@ namespace Curves
         {
             double s = t * _length;
             return CalculateCurvature(s);
-
-            //double curvature = (t * _length) / (_a * _a) + _start_curvature;
-            //return curvature;
         }
 
         /// <summary>
@@ -199,13 +189,6 @@ namespace Curves
         {
             double s = t * _length;
             return CalculateDirection(s);
-
-            //double L = t * _length;
-            //double aa = _a * _a;
-            //if (_a < 0)
-            //    aa *= -1.0;
-
-            //return _start_direction + L * _start_curvature + ((L * L) / (2 * aa));
         }
 
         /// <summary>
