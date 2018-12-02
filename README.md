@@ -5,5 +5,7 @@ C# library for basic curves: line segment, arc, clothoid and polynomial spiral.
 
 [![Build Status](https://seilers.visualstudio.com/Curves-seilers/_apis/build/status/SEilers.Curves)](https://seilers.visualstudio.com/Curves-seilers/_build/latest?definitionId=1)
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9defb2f1893e4f8b9bbf694629b3588f)](https://www.codacy.com/app/SEilers/Curves?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SEilers/Curves&amp;utm_campaign=Badge_Grade)
+
 ## Licensing
 This project is licensed under MIT license.
