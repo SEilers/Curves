@@ -15,7 +15,7 @@ namespace Curves
     {
         protected double[] _coefficents;
         protected int _numIterations = 12;
-        private bool _generatePointList = false;
+        private bool _generatePointList;
 
         /// <summary>
         /// Constructor of the polynomial spiral.
@@ -197,7 +197,9 @@ namespace Curves
             for (int i = 0; i < numTerms; i++)
             {
                 if (_coefficents[i] != 0)
+                {
                     result += (_coefficents[i] * Math.Pow(s, i + 1)) / (i + 1);
+                }
             }
 
             result += _start_direction;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UnitTests
 {
-    class Helper
+    public static class Helper
     {
         static double epsilon = 0.0001;
 
