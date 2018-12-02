@@ -220,7 +220,9 @@ namespace Curves
             for (int i = 0; i < numTerms; i++)
             {
                 if (_coefficents[i] != 0)
+                {
                     result += _coefficents[i] * Math.Pow(s, i);
+                }
             }
 
             return result;

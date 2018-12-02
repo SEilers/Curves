@@ -19,7 +19,7 @@ namespace CurvesDemo
             InitializeComponent();
         }
 
-        int seriesIndex = 0;
+        int seriesIndex;
 
         private void DrawCurve( Curve curve, int numPoints, System.Drawing.Color color )
         {
