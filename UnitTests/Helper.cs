@@ -8,7 +8,7 @@ namespace UnitTests
 {
     public static class Helper
     {
-        static double epsilon = 0.0001;
+        static readonly double epsilon = 0.0001;
 
         /// <summary>
         /// To prevent comparing two doubles via the equal sign.

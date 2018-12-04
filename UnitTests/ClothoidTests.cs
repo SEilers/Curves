@@ -108,8 +108,6 @@ namespace UnitTests
             if( clothoid != null )
             {
                 Point2D endPoint = clothoid.InterpolatePoint2D(1);
-                double length = clothoid.Length;
-                double A = clothoid.A;
                 Assert.IsTrue(Helper.DoubleCompare(2, endPoint.X));
                 Assert.IsTrue(Helper.DoubleCompare(1, endPoint.Y));
             }
@@ -122,8 +120,6 @@ namespace UnitTests
             if (clothoid != null)
             {
                 Point2D endPoint = clothoid.InterpolatePoint2D(1);
-                double length = clothoid.Length;
-                double A = clothoid.A;
                 Assert.IsTrue(Helper.DoubleCompare(3, endPoint.X));
                 Assert.IsTrue(Helper.DoubleCompare(2, endPoint.Y));
             }
