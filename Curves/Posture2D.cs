@@ -8,27 +8,22 @@ namespace Curves
     [Serializable]
     public class Posture2D
     {
-        private double _curvature;
-        private double _x;
-        private double _y;
-        private double _direction;
-
-        public double X { get => _x; set => _x = value; }
-        public double Y { get => _y; set => _y = value; }
-        public double Direction { get => _direction; set => _direction = value; }
-        public double Curvature { get => _curvature; set => _curvature = value; }
+        public double X { get; set; }
+        public double Y { get; set; }
+        public double Direction { get; set; }
+        public double Curvature { get; set; }
 
         public Posture2D(double x, double y, double direction, double curvature)
         {
-            _x = x;
-            _y = y;
-            _direction = direction;
-            _curvature = curvature;
+            X = x;
+            Y = y;
+            Direction = direction;
+            Curvature = curvature;
         }
 
         public override string ToString()
         {
-            return "X: " + _x + " Y: " + _y + " Direction: " + _direction + " Curvature: " + _curvature;
+            return "X: " + X + " Y: " + Y + " Direction: " + Direction + " Curvature: " + Curvature;
         }
     }
 }

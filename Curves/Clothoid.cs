@@ -23,18 +23,12 @@ namespace Curves
             }
         }
 
-        private int _numIterations = 12;
-
         private bool _generatePointList;
 
         /// <summary>
         /// Getting and setting the number of iterations during integration of a point.
         /// </summary>
-        public int NumIterations
-        {
-            get { return _numIterations; }
-            set { _numIterations = value; }
-        }
+        public int NumIterations { get; set; } = 12;
 
 
         /// <summary>
@@ -238,7 +232,7 @@ namespace Curves
             // length of this clothoid
             double L = s;
             // stepSize
-            double h = L / ((double)_numIterations-1);
+            double h = L / ((double)NumIterations-1);
 
             double IntCos = 0;
             double IntSin = 0;
@@ -252,7 +246,7 @@ namespace Curves
             }
 
 
-            for (int i = 0; i < _numIterations-1; i++)
+            for (int i = 0; i < NumIterations-1; i++)
             {
                 left = i * h;
                 right = (i + 1) * h;
@@ -287,10 +281,10 @@ namespace Curves
             _pointList = new List<Point2D>();
 
             _generatePointList = true;
-            int oldNumIterations = _numIterations;
-            _numIterations = numPoints;
+            int oldNumIterations = NumIterations;
+            NumIterations = numPoints;
             CalculatePoint2D(_length);
-            _numIterations = oldNumIterations;
+            NumIterations = oldNumIterations;
             _generatePointList = false;
 
             return _pointList;

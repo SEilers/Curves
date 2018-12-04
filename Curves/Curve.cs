@@ -27,11 +27,11 @@ namespace Curves
         /// <summary>
         /// The Y coordinate of the start point.
         /// </summary>
-        public double StartY { get { return _start_x; } }
+        public double StartY { get { return _start_y; } }
         /// <summary>
         /// Start direction in radians.
         /// </summary>
-        public double StartDirection { get { return _start_x; } }
+        public double StartDirection { get { return _start_direction; } }
         /// <summary>
         /// The start curvature
         /// </summary>
