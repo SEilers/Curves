@@ -106,7 +106,7 @@ namespace Curves
         {
             double x = 0, y = 0;
 
-            double h = s / ((double)_numIterations-1);
+            double h = s / ((double)_numIterations - 1);
             double IntCos = 0, IntSin = 0;
             double left = 0, right = 0, mid = 0;
             double pl = 0, pm = 0, pr = 0;
@@ -116,7 +116,7 @@ namespace Curves
                 _pointList.Add(new Point2D(_start_x + 0, _start_y + 0));
             }
 
-            for (int i = 0; i < _numIterations-1; i++)
+            for (int i = 0; i < _numIterations - 1; i++)
             {
                 left = i * h;
                 right = (i + 1) * h;
@@ -196,10 +196,7 @@ namespace Curves
 
             for (int i = 0; i < numTerms; i++)
             {
-                if (_coefficents[i] != 0)
-                {
-                    result += (_coefficents[i] * Math.Pow(s, i + 1)) / (i + 1);
-                }
+                result += (_coefficents[i] * Math.Pow(s, i + 1)) / (i + 1);
             }
 
             result += _start_direction;
@@ -219,10 +216,7 @@ namespace Curves
 
             for (int i = 0; i < numTerms; i++)
             {
-                if (_coefficents[i] != 0)
-                {
-                    result += _coefficents[i] * Math.Pow(s, i);
-                }
+                result += _coefficents[i] * Math.Pow(s, i);
             }
 
             return result;
